@@ -234,14 +234,19 @@ async def ban_error(ctx, error):
     if isinstance(error, commands.MissingPermissions):
         await ctx.send('Sorry you are not allowed to strike members!')
 
-
+@client.command(name="userid")
+async def userid(ctx,user: discord.User=None):
+    if user==None:
+        await ctx.send(f"Your user id is: {ctx.author.id}")
+    else:
+        await ctx.send(f"The user id of {user} is {user.id}")
 @client.event
 async def on_guild_join(guild):
     channel = discord.utils.get(guild.channels, name="general")
     channel_id=channel.id
     embed=discord.Embed(title="Thanks for inviting me to your server!",description="To get started, type &help to get a list of commands!\nRemember to prefix '&' before your command so I can understand it.",color=0x72d345)
     await channel.send(embed=embed)
-    
+
 
 key=open("key.txt",'r').read() 
 client.run(key)
